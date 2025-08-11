@@ -1,1 +1,11 @@
+
+#installing libraries
 python -m pipenv install pandas  
+python -m pipenv install streamlit
+python -m pipenv install langchain ,langchain-core, langchain-community, langchain-huggingface, langchain-groq, python-dotenv, sentence-transformers
+
+git config --global user.name "Harshad Kumar"
+git config --global user.email "harshad7106@gmail.com"
+
+#reference repo 
+https://github.com/yash-meshram/rag-pdf-qa/
