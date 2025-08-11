@@ -7,6 +7,10 @@ python -m pipenv install langchain ,langchain-core, langchain-community, langcha
 git config --global user.name "Harshad Kumar"
 git config --global user.email "harshad7106@gmail.com"
 
+git add .
+git commit -a -m 'test2'
+git push origin main:master
+
 #reference repo 
 https://github.com/yash-meshram/rag-pdf-qa/
 
