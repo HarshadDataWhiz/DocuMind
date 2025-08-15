@@ -8,13 +8,16 @@ pandas = "*"
 streamlit = "*"
 langchain = "*"
 langchain-core = "*"
-langchain-community = "*"
 langchain-huggingface = "*"
 langchain-groq = "*"
 python-dotenv = "*"
 sentence-transformers = "*"
+langchain-community = "*"
+pypdf = "*"
+numpy = "<2"
 
 [dev-packages]
+ipykernel = "*"
 
 [requires]
-python_version = "3.11"
+python_version = "3.12.4"
