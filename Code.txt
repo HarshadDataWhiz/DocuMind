@@ -14,7 +14,28 @@ git push origin main:master
 #reference repo 
 https://github.com/yash-meshram/rag-pdf-qa/
 
-#testing 3
+# pipenv install
+# pipenv shell to activate
+
+deactivate # to exit from enviornment
+
+#command to remove pipenv files 
+
+#forcfully installing python 3.12
+#pipenv --rm
+#pipenv install --python 3.12
 
 
-#testing4
+
+## questions to deep think
+1. Which sentence bert model should be used for embedding and how we can make it more powerful
+2. text splitter into pages which we should use
+3. imporove the search recommendation  top 3 it seems to be  very poor
+4. how we can evaluate the system <- search for more 
+5. which groq model we should use for prompting or any other LLM
+6. What are the instructions we need to keep in mind realated to prompting and LLM chain invoke 
+ answer_chain = LLMChain(
+            llm = self.llm,
+            prompt = prompt
+        )
+
