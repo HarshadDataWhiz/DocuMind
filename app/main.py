@@ -7,7 +7,7 @@ def get_response(question: str, filepath: str):
 
     document_pages = load_pages(filepath)
 
-    print(document_pages[0])
+    # print(document_pages[0])
 
     # splitting
     document_pages_split = vectorStore.split_text(document_pages)

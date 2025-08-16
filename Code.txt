@@ -1,15 +1,6 @@
 
 #installing libraries
-python -m pipenv install pandas  
-python -m pipenv install streamlit
-python -m pipenv install langchain ,langchain-core, langchain-community, langchain-huggingface, langchain-groq, python-dotenv, sentence-transformers
 
-git config --global user.name "Harshad Kumar"
-git config --global user.email "harshad7106@gmail.com"
-
-git add .
-git commit -a -m 'test2'
-git push origin main:master
 
 #reference repo 
 https://github.com/yash-meshram/rag-pdf-qa/
@@ -19,12 +10,7 @@ https://github.com/yash-meshram/rag-pdf-qa/
 
 deactivate # to exit from enviornment
 
-#command to remove pipenv files 
-
-#forcfully installing python 3.12
-#pipenv --rm
-#pipenv install --python 3.12
-
+#command to remove pipenv fil
 
 
 ## questions to deep think
