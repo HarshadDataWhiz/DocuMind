@@ -1,1 +1,4 @@
 EDA.ipynb
+*.pkl
+*.pickle
+.env
