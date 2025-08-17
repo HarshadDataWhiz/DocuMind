@@ -2,7 +2,6 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.vectorstores import InMemoryVectorStore
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 import pickle
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
 class vectorStore:
@@ -22,14 +21,9 @@ class vectorStore:
         vector_store = InMemoryVectorStore.from_documents(
             all_splits, embedding
         )
-        with open("data/VectorStore/vector_store.pkl", "wb") as f:
-            pickle.dump(vector_store, f)
+        return vector_store
 
-        return
-
-    def search(question: str) -> list:
-        with open("data/VectorStore/vector_store.pkl", "rb") as f:
-            vector_store = pickle.load(f)
+    def search(question: str, vector_store ) -> list:
         pages = vector_store.similarity_search(
             query = question,
             k = 3
