@@ -1,32 +1,42 @@
-from pdfLoader import load_pages
-from vectorStore import vectorStore
-from chain import Chain
+from fastapi import FastAPI, Query
+from app.pdfLoader import load_pages
+from app.vectorStore import vectorStore
+from app.chain import Chain
+from pathlib import Path
 import os
 
-def get_response(question: str, filepath: str):
+app = FastAPI()
 
-    document_pages = load_pages(filepath)
+# Global variable to store vector stores
+vs_store_dict = {}
 
-    # print(document_pages[0])
+def create_store(folder_loc=os.path.join(os.curdir, 'data', 'Documents')):
+    vs_store_dict_local = {}
+    for filepath in Path(folder_loc).glob("*.pdf"):
+        document_pages = load_pages(filepath)
+        # splitting
+        document_pages_split = vectorStore.split_text(document_pages)
+        # creating the vector store
+        vs_store_dict_local[filepath.name] = vectorStore.create_vector_store(document_pages_split)
+    return vs_store_dict_local
 
-    # splitting
-    document_pages_split = vectorStore.split_text(document_pages)
-    
-    # creating the vector store
-    vectorStore.create_vector_store(document_pages_split)
-
-    # search question in vector store
-    pages_data = vectorStore.search(question = question)
-
-    # getting the answer
+def answer_pipeline(question: str, filename: str):
+    pages_data = vectorStore.search(question, vs_store_dict[filename])
     chain = Chain()
-    answer = chain.get_answer(question = question, docs_data = pages_data)
+    answer = chain.get_answer(question=question, docs_data=pages_data)
     return answer
 
-if __name__ == '__main__':
-    file_path = os.path.join(os.curdir, 'data', 'Documents', 'Report_Harshad_Kumar.pdf')
-    
-    ans = get_response("Who is the supervisor of the thesis?", file_path)
+# Load vector store only once at startup
+@app.on_event("startup")
+def startup_event():
+    global vs_store_dict
+    vs_store_dict = create_store()
+    print("Vector store created at startup ✅")
 
-    print(ans)
-
+@app.get("/ask")
+def ask_question(question: str = Query(..., description="User's question"),
+                 filename: str = Query(..., description="PDF filename to search in")):
+    if filename not in vs_store_dict:
+        return {"error": f"Filename '{filename}' not found"}
+    answer = answer_pipeline(question, filename)
+    return {"filename": filename, "question": question, "answer": answer}
